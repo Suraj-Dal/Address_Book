@@ -1,2 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using AddressBook;
+internal class Directory
+{
+    public static List<Contacts> person = new List<Contacts>();
+
+    public static void main(String[] args)
+    {
+        AddressBook.Person.createContact();
+    }
+}
