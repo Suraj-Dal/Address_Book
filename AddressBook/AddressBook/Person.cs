@@ -8,7 +8,7 @@ namespace AddressBook
 {
     internal class Person
     {
-        
+
         public static void createContacts()
         {
             Contacts contact = new Contacts();
@@ -37,7 +37,7 @@ namespace AddressBook
             contact.email = Console.ReadLine();
 
             Program.person.Add(contact);
-            
+
 
         }
 
@@ -59,9 +59,8 @@ namespace AddressBook
                 Console.WriteLine("Zip Code: " + contact.zip);
                 Console.WriteLine("Contact No.: " + contact.phoneNo);
                 Console.WriteLine("Email address: " + contact.email);
-                Console.WriteLine("--------------------------------------------------");
             }
-           
+
         }
 
         public static void editContacts()
@@ -117,6 +116,19 @@ namespace AddressBook
                 }
             }
 
+        }
+        public static void removeContact()
+        {
+            Console.WriteLine("Enter Name of person to delete details: ");
+            string name = Console.ReadLine();
+
+            foreach (var contact in Program.person.ToList())
+            {
+                if (contact.fName.Equals(name))
+                {
+                    Program.person.Remove(contact);
+                }
+            }
         }
     }
 }
