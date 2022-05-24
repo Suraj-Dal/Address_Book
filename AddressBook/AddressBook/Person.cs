@@ -51,14 +51,7 @@ namespace AddressBook
             Console.WriteLine("List of contacts:\n");
             foreach (var contact in Program.person)
             {
-                Console.WriteLine("First Name: " + contact.fName);
-                Console.WriteLine("Last Name: " + contact.lName);
-                Console.WriteLine("Address: " + contact.address);
-                Console.WriteLine("City: " + contact.city);
-                Console.WriteLine("State: " + contact.state);
-                Console.WriteLine("Zip Code: " + contact.zip);
-                Console.WriteLine("Contact No.: " + contact.phoneNo);
-                Console.WriteLine("Email address: " + contact.email);
+                Console.WriteLine("\nFirst Name: " + contact.fName + "\nLast Name: " + contact.lName + "\nAddress: " + contact.address + "\nCity: " + contact.city + "\nState: " + contact.state + "\nZip Code: " + contact.zip + "\nContact No.: " + contact.phoneNo + "\nEmail address: " + contact.email +"----------------------------------------------\n");
             }
 
         }
@@ -128,6 +121,16 @@ namespace AddressBook
                 {
                     Program.person.Remove(contact);
                 }
+            }
+        }
+        public static void addMultiContacts()
+        {
+            Console.WriteLine("How many contacts you want to add:");
+            int n = Convert.ToInt32(Console.ReadLine());
+            while (n > 0)
+            {
+                createContacts();
+                n--;
             }
         }
     }
