@@ -8,6 +8,7 @@ namespace AddressBook
 {
     internal class Person
     {
+        public Dictionary<string, List<Contacts>> group = new Dictionary<string, List<Contacts>>();
 
         public static void createContacts()
         {
@@ -41,21 +42,42 @@ namespace AddressBook
 
         }
 
-        public static void displayContacts()
+        public void displayContacts()
         {
             if (Program.person.Count == 0)
             {
                 Console.WriteLine("Address book is empty.");
                 return;
             }
-            Console.WriteLine("List of contacts:\n");
-            foreach (var contact in Program.person)
+
+            Console.WriteLine("1.Total Contacts\n2.Group");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            switch (choice)
             {
-                Console.WriteLine("\nFirst Name: " + contact.fName + "\nLast Name: " + contact.lName + "\nAddress: " + contact.address + "\nCity: " + contact.city + "\nState: " + contact.state + "\nZip Code: " + contact.zip + "\nContact No.: " + contact.phoneNo + "\nEmail address: " + contact.email +"----------------------------------------------\n");
+                case 1:
+                    Console.WriteLine("List of contacts:\n");
+                    foreach (var contact in Program.person)
+                    {
+                        Console.WriteLine("\nFirst Name: " + contact.fName + "\nLast Name: " + contact.lName + "\nAddress: " + contact.address + "\nCity: " + contact.city + "\nState: " + contact.state + "\nZip Code: " + contact.zip + "\nContact No.: " + contact.phoneNo + "\nEmail address: " + contact.email + "----------------------------------------------\n");
+                    }
+                    break;
+                case 2:
+                    foreach (string key in group.Keys)
+                    {
+                        Console.WriteLine(key);
+                    }
+
+                    Console.WriteLine("Enter group you want to display.");
+                    string gName = Console.ReadLine();
+                    List<Contacts> list = group[gName];
+
+                    foreach (var contact in list)
+                        Console.WriteLine("\nFirst Name: " + contact.fName + "\nLast Name: " + contact.lName + "\nAddress: " + contact.address + "\nCity: " + contact.city + "\nState: " + contact.state + "\nZip Code: " + contact.zip + "\nContact No.: " + contact.phoneNo + "\nEmail address: " + contact.email + "----------------------------------------------\n");
+                    break;
             }
 
         }
-
         public static void editContacts()
         {
             Console.WriteLine("Enter Name of person to edit details: ");
@@ -123,7 +145,7 @@ namespace AddressBook
                 }
             }
         }
-        public static void addMultiContacts()
+        public void addMultiContacts()
         {
             Console.WriteLine("How many contacts you want to add:");
             int n = Convert.ToInt32(Console.ReadLine());
@@ -132,6 +154,22 @@ namespace AddressBook
                 createContacts();
                 n--;
             }
+            
+        }
+        public void addMultiAddressBooks()
+        {
+            Console.WriteLine("How many address books you want to add: ");
+            int noOfBooks = Convert.ToInt32(Console.ReadLine());
+            while (noOfBooks > 0)
+            {
+                Console.WriteLine("Enter group name:");
+                string gName = Console.ReadLine();
+                Person people = new Person();
+                people.addMultiContacts();
+                group.Add(gName, Program.person.ToList());
+                noOfBooks--;
+            }
         }
     }
 }
+
