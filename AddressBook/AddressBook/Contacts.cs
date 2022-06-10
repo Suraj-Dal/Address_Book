@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AddressBook
 {
-    internal class Contacts
+    public class Contacts
     {
         public string fName { get; set; } 
         public string lName { get; set; }
@@ -16,5 +16,18 @@ namespace AddressBook
         public int zip { get; set; }
         public double phoneNo { get; set; }
         public string email { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Contacts))
+            {
+                return false;
+            }
+            return this.fName == ((Contacts)obj).fName;
+        }
     }
 }
