@@ -220,13 +220,13 @@ namespace AddressBook
                 {
 
                     if (byCity.ContainsKey(item.city))
-                        byCity[item.city].Add(item.fName +" "+ item.lName);
+                        byCity[item.city].Add(item.fName + " " + item.lName);
                     else
-                        byCity.Add(item.city, new List<string>() { item.fName +" "+ item.lName });
+                        byCity.Add(item.city, new List<string>() { item.fName + " " + item.lName });
                     if (ByState.ContainsKey(item.state))
-                        ByState[item.state].Add(item.fName+" "+item.lName);
+                        ByState[item.state].Add(item.fName + " " + item.lName);
                     else
-                        ByState.Add(item.state, new List<string>() { item.fName +" "+ item.lName });
+                        ByState.Add(item.state, new List<string>() { item.fName + " " + item.lName });
                 }
             }
             Console.WriteLine("Contacts by city:");
@@ -241,6 +241,46 @@ namespace AddressBook
             {
                 Console.WriteLine("Contacts from state: " + key);
                 ByState[key].ForEach(x => Console.WriteLine(x));
+            }
+        }
+        public void getCount()
+        {
+            foreach (var key in group.Keys)
+            {
+                foreach (var item in group[key])
+                {
+
+                    if (byCity.ContainsKey(item.city))
+                        byCity[item.city].Add(item.fName + " " + item.lName);
+                    else
+                        byCity.Add(item.city, new List<string>() { item.fName + " " + item.lName });
+                    if (ByState.ContainsKey(item.state))
+                        ByState[item.state].Add(item.fName + " " + item.lName);
+                    else
+                        ByState.Add(item.state, new List<string>() { item.fName + " " + item.lName });
+                }
+            }
+            Console.WriteLine("No. of contacts by city.");
+            foreach (var key in byCity.Keys)
+            {
+                    Func<int, int> count = x =>
+                    {
+                        foreach (var value in byCity[key])
+                            x += 1;
+                        return x;
+                    };
+                    Console.WriteLine("No. of contacts in city " + key + " are " + count(0));
+            }
+            Console.WriteLine("No. of contacts by state.");
+            foreach (var key in ByState.Keys)
+            {
+                    Func<int, int> count = x =>
+                    {
+                        foreach (var value in ByState[key])
+                            x += 1;
+                        return x;
+                    };
+                    Console.WriteLine("No. of contacts in state " + key + " are " + count(0));
             }
 
         }
