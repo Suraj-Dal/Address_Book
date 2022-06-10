@@ -182,6 +182,36 @@ namespace AddressBook
                 noOfBooks--;
             }
         }
+        public void SearchByCityorState()
+        {
+            Console.WriteLine("Enter City or state to search contacts:");
+            string value = Console.ReadLine();   
+            foreach (var Contacts in group.Values)
+            {
+                List<Contacts> city = Contacts.FindAll(p => p.city.ToLower() == value.ToLower());
+                List<Contacts> state = Contacts.FindAll(p => p.state.ToLower() == value.ToLower());
+                if (city.Count != 0)
+                {
+                    Console.WriteLine("All contacts from city {0} are:", value);
+                    foreach (var contact in city)
+                    {
+                        Console.WriteLine("Name:{0} {1}", contact.fName, contact.lName);
+                    }
+                }
+                else if (state.Count != 0)
+                {
+                    Console.WriteLine("All contacts from state {0} are:", value);
+                    foreach (var contact in state)
+                    {
+                        Console.WriteLine("Name:{0} {1}", contact.fName, contact.lName);
+                    }
+                }
+                else
+                    Console.WriteLine("No contact details availbale for given city/State.");
+            }
+            
+        }
+
     }
 }
 
