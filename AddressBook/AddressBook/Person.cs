@@ -10,11 +10,12 @@ namespace AddressBook
     {
         public static List<Contacts> person = new List<Contacts>();
         public Dictionary<string, List<Contacts>> group = new Dictionary<string, List<Contacts>>();
+        public Dictionary<string, List<string>> byCity = new Dictionary<string, List<string>>();
+        public Dictionary<string, List<string>> ByState = new Dictionary<string, List<string>>();
 
-        
         public static void createContacts()
         {
-            
+
             Contacts contact = new Contacts();
             Console.WriteLine("Enter First Name: ");
             contact.fName = Console.ReadLine();
@@ -78,7 +79,7 @@ namespace AddressBook
                     {
                         Console.WriteLine(key);
                     }
-                    
+
 
                     Console.WriteLine("Enter group you want to display.");
                     string gName = Console.ReadLine();
@@ -167,7 +168,7 @@ namespace AddressBook
                 createContacts();
                 n--;
             }
-            
+
         }
         public void addMultiAddressBooks()
         {
@@ -185,7 +186,7 @@ namespace AddressBook
         public void SearchByCityorState()
         {
             Console.WriteLine("Enter City or state to search contacts:");
-            string value = Console.ReadLine();   
+            string value = Console.ReadLine();
             foreach (var Contacts in group.Values)
             {
                 List<Contacts> city = Contacts.FindAll(p => p.city.ToLower() == value.ToLower());
@@ -209,9 +210,40 @@ namespace AddressBook
                 else
                     Console.WriteLine("No contact details availbale for given city/State.");
             }
-            
-        }
 
+        }
+        public void displayByCityOrState()
+        {
+            foreach (var key in group.Keys)
+            {
+                foreach (var item in group[key])
+                {
+
+                    if (byCity.ContainsKey(item.city))
+                        byCity[item.city].Add(item.fName +" "+ item.lName);
+                    else
+                        byCity.Add(item.city, new List<string>() { item.fName +" "+ item.lName });
+                    if (ByState.ContainsKey(item.state))
+                        ByState[item.state].Add(item.fName+" "+item.lName);
+                    else
+                        ByState.Add(item.state, new List<string>() { item.fName +" "+ item.lName });
+                }
+            }
+            Console.WriteLine("Contacts by city:");
+            foreach (var key in byCity.Keys)
+            {
+                Console.WriteLine("Contacts from city:" + key);
+                byCity[key].ForEach(x => Console.WriteLine(x));
+
+            }
+            Console.WriteLine("Contacts by state:");
+            foreach (var key in ByState.Keys)
+            {
+                Console.WriteLine("Contacts from state: " + key);
+                ByState[key].ForEach(x => Console.WriteLine(x));
+            }
+
+        }
     }
 }
 
