@@ -312,6 +312,31 @@ namespace AddressBook
                 }
             }
         }
+
+        public void writeToCSVFile()
+        {
+            string path = @"C:\Projects\Address_Book\ContactsCSV.csv";
+            Console.WriteLine("FirstName, LastName, Address, City, Zip, Phone, Email (Use ',' as seperator)");
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine(Console.ReadLine());
+            File.AppendAllText(path, builder.ToString());
+        }
+
+        public void readFromCSVFile()
+        {
+            string path = @"C:\Projects\Address_Book\ContactsCSV.csv";
+            string[] data = File.ReadAllLines(path);
+            string[] header = { "First Name", "LastName", "Address", "City", "State", "Zip Code", "Phone Number", "Email" };
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                string[] person = data[i].Split(",");
+                for (int j = 0; j < person.Length; j++)
+                {
+                    Console.WriteLine(header[j] + ":" + person[j]);
+                }
+            }
+        }
     }
 }
 
