@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -334,6 +335,33 @@ namespace AddressBook
                 for (int j = 0; j < person.Length; j++)
                 {
                     Console.WriteLine(header[j] + ":" + person[j]);
+                }
+            }
+        }
+
+        public void JSONSerialization()
+        {
+            String path = @"C:\Projects\Address_Book\ContactsJSON.json";
+            addMultiAddressBooks();
+            var json = JsonConvert.SerializeObject(group);
+            File.WriteAllText(path, json);
+        }
+
+        public void JSONDeserialization()
+        {
+            String path = @"C:\Projects\Address_Book\ContactsJSON.json";
+            using StreamReader streamReader = new StreamReader(path);
+            {
+                string json = streamReader.ReadToEnd();
+                var jsonfile = JsonConvert.DeserializeObject<Dictionary<string, List<Contacts>>>(json);
+                foreach (var detail in jsonfile)
+                {
+                    foreach (var data in detail.Value)
+                    {
+                        Console.WriteLine("First Name: " + data.fName + "\nLast Name: " + data.lName + "\nAddress: "
+                        + data.address + "\nCity: " + data.city + "\nState: " + data.state + "\nZip Code: "
+                        + data.zip + "\nPhone Number: " + data.phoneNo + "\nEmail: " + data.email + "\n");
+                    }
                 }
             }
         }
