@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -283,6 +284,33 @@ namespace AddressBook
                     Console.WriteLine("No. of contacts in state " + key + " are " + count(0));
             }
 
+        }
+
+        public void writeToTxtFile()
+        {
+            string path = @"C:\Projects\Address_Book\ContactsFile.txt";
+            Console.WriteLine("FirstName, LastName, Address, City, Zip, Phone, Email (Use ',' as seperator)");
+            using StreamWriter write = new StreamWriter(path);
+            {
+                write.WriteLine(Console.ReadLine());
+                write.Close();
+            }
+        }
+
+        public void readFromTxtFile()
+        {
+            string path = @"C:\Projects\Address_Book\ContactsFile.txt";
+            string[] data = File.ReadAllLines(path);
+            string[] header = { "First Name", "LastName", "Address", "City", "State", "Zip Code", "Phone Number", "Email" };
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                string[] person = data[i].Split(","); 
+                for (int j = 0; j < person.Length; j++)
+                {
+                    Console.WriteLine(header[j] +":"+ person[j]);
+                }
+            }
         }
     }
 }
